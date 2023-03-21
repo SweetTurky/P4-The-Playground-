@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
@@ -9,19 +7,17 @@ public class CharacterMovement : MonoBehaviour
     public float sprintSpeed = 1f;
     public float currentSpeed;
     public GameObject player;
-    //private Rigidbody rb;
-    bool collision;
-
-    [SerializeField] Transform cam;
+    private Rigidbody rb;
+    public Transform cam;
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        //rb = GetComponent<Rigidbody>();
+        rb = this.GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -33,10 +29,8 @@ public class CharacterMovement : MonoBehaviour
             currentSpeed = baseSpeed;
         }
 
-        //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        float playerVertInput = Input.GetAxis("Vertical") * Time.deltaTime * currentSpeed;
-        float playerHoriInput = Input.GetAxis("Horizontal") * Time.deltaTime * currentSpeed;
+        float playerVertInput = Input.GetAxis("Vertical");
+        float playerHoriInput = Input.GetAxis("Horizontal");
 
         //Vector3 move = new Vector3(playerHoriInput, playerVertInput, 0);
 
@@ -54,16 +48,18 @@ public class CharacterMovement : MonoBehaviour
         Vector3 forwardRelative = playerVertInput * camForward;
         Vector3 rightRelative = playerHoriInput * camRight;
 
-        Vector3 camRelative = forwardRelative + rightRelative;
+        Vector3 camRelativeMove = forwardRelative + rightRelative;
+        
+        Vector3 velocity = camRelativeMove * currentSpeed * Time.fixedDeltaTime;
+        rb.velocity = velocity;
 
         turn.x += Input.GetAxis("Mouse X");
         turn.y += Input.GetAxis("Mouse Y");
-        //float y = Input.GetAxis("Mouse X") * turnSpeed;
-        //player.transform.eulerAngles = new Vector3(0, player.transform.eulerAngles.y + y, 0);
         transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
 
         //collision detection w/ conditional movement
-        Ray ray = new Ray(transform.position, transform.forward);
+
+        /*Ray ray = new Ray(transform.position, transform.forward);
 
         if (Physics.Raycast(ray, 0.3f + currentSpeed * Time.deltaTime))
         {
@@ -74,6 +70,6 @@ public class CharacterMovement : MonoBehaviour
         if (!collision)
         {
             transform.Translate(camRelative, Space.World);
-        }
+        }*/
     }
 }

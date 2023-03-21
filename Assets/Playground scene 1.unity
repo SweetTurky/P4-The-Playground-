@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -12075,7 +12075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1378589717
 AudioSource:
   m_ObjectHideFlags: 0
@@ -16719,10 +16719,10 @@ GameObject:
   - component: {fileID: 1978481863}
   - component: {fileID: 1978481862}
   - component: {fileID: 1978481861}
-  - component: {fileID: 1978481859}
   - component: {fileID: 1978481858}
   - component: {fileID: 1978481865}
   - component: {fileID: 1978481866}
+  - component: {fileID: 1978481867}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -16743,29 +16743,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turn: {x: 0, y: 0}
-  baseSpeed: 0.8
-  sprintSpeed: 1.5
+  baseSpeed: 40
+  sprintSpeed: 60
   currentSpeed: 0
   player: {fileID: 1978481857}
   cam: {fileID: 963194228}
---- !u!143 &1978481859
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1978481857}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1978481861
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16845,10 +16827,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 2
 --- !u!114 &1978481866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16856,16 +16838,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978481857}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9976d2616fb9f214e8200359e6b7c686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggeredBy: 1
-  distanceBetweenSteps: 1.8
+  distanceBetweenSteps: 1
   controllerType: 0
   characterRigidbody: {fileID: 1978481865}
-  characterController: {fileID: 1978481859}
+  characterController: {fileID: 0}
   audioSource: {fileID: 1378589717}
   minVolume: 0.3
   maxVolume: 0.5
@@ -16876,6 +16858,20 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 0
+--- !u!136 &1978481867
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978481857}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.49999997
+  m_Height: 1.9999999
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1979668042
 PrefabInstance:
   m_ObjectHideFlags: 0
