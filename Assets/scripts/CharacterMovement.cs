@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -6,15 +8,23 @@ public class CharacterMovement : MonoBehaviour
     public float baseSpeed = 0.2f;
     public float sprintSpeed = 1f;
     public float currentSpeed;
+    //public int jumpHeight;
+    //public bool grounded = false;
+
     public GameObject player;
     private Rigidbody rb;
     public Transform cam;
+
+
+    void Awake()
+    {
+        rb = this.GetComponent<Rigidbody>();
+    }
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        rb = this.GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -31,10 +41,6 @@ public class CharacterMovement : MonoBehaviour
 
         float playerVertInput = Input.GetAxis("Vertical");
         float playerHoriInput = Input.GetAxis("Horizontal");
-
-        //Vector3 move = new Vector3(playerHoriInput, playerVertInput, 0);
-
-        //characterController.Move(move*Time.deltaTime * speed);
 
         Vector3 camForward = cam.forward;
         Vector3 camRight = cam.right;
@@ -53,23 +59,13 @@ public class CharacterMovement : MonoBehaviour
         Vector3 velocity = camRelativeMove * currentSpeed * Time.fixedDeltaTime;
         rb.velocity = velocity;
 
-        turn.x += Input.GetAxis("Mouse X");
-        turn.y += Input.GetAxis("Mouse Y");
-        transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
-
-        //collision detection w/ conditional movement
-
-        /*Ray ray = new Ray(transform.position, transform.forward);
-
-        if (Physics.Raycast(ray, 0.3f + currentSpeed * Time.deltaTime))
+        turn.x += Input.GetAxisRaw("Mouse X");
+        turn.y += Input.GetAxisRaw("Mouse Y");
+        transform.rotation = Quaternion.Euler(-turn.y, turn.x, 0);
+        
+        /*if (Input.GetKeyDown(KeyCode.Space)
         {
-            collision = true;
-        }
-        else collision = false;
-
-        if (!collision)
-        {
-            transform.Translate(camRelative, Space.World);
-        }*/
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        } */
     }
 }
